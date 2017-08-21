@@ -1,16 +1,18 @@
 require "faraday_resilient/version"
+require "resilient/circuit_breaker"
 
 module FaradayResilient
   class Middleware < Faraday::Middleware
     def call(request_env)
-      require 'pry'; binding.pry
+      request_host    = request_env.url.host
+      circuit_breaker = Resilient::CircuitBreaker.get(request_host)
 
-      # do something with the request
-      # request_env[:request_headers].merge!(...)
+      if !circuit_breaker.allow_request?
+        return NotImplementedError
+      end
 
       @app.call(request_env).on_complete do |response_env|
-        # do something with the response
-        # response_env[:response_headers].merge!(...)
+        circuit_breaker.success
       end
     end
   end

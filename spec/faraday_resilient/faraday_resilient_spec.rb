@@ -7,7 +7,8 @@ describe FaradayResilient do
 end
 
 describe FaradayResilient::Middleware do
-  it 'does the thing' do
-    app.get('/ok')
+  it 'allows requests for a healthy host' do
+    response = app.get('https://ok.com/')
+    expect(response.status).to eq 200
   end
 end
