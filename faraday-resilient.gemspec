@@ -7,11 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "faraday-resilient"
   spec.version       = Faraday::Resilient::VERSION
   spec.authors       = ["Brooks Swinnerton"]
-  spec.email         = ["bswinnerton@gmail.com"]
+  spec.email         = ["brooks@github.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{A Faraday middleware using the Resilient gem to utilize circuit breakers in your connections.}
+  spec.homepage      = "https://github.com/bswinnerton/faraday-resilient"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
