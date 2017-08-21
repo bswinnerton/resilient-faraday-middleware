@@ -17,7 +17,7 @@ describe FaradayResilient::Middleware do
     expect(response.status).to eq 500
   end
 
-  it 'continues to return TimeoutError when a circuit is opened' do
+  it 'continues to return TimeoutError when a request times out' do
     request = -> { app.get('http://webhook-recipient.com/timeout') }
     expect(request).to raise_error Faraday::TimeoutError
   end
