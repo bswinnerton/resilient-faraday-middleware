@@ -9,7 +9,8 @@ def app
   Faraday.new do |builder|
     builder.use FaradayResilient::Middleware
     builder.adapter :test do |stub|
-      stub.get('https://ok.com/') { |env| [ 200, {}, 'OK' ] }
+      stub.get('http://webhook-recipient.com/200') { |env| [ 200, {}, 'OK' ] }
+      stub.get('http://webhook-recipient.com/500') { |env| [ 500, {}, 'Internal Server Error' ] }
     end
   end
 end
