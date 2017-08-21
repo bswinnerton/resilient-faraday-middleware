@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe Faraday::Resilient do
+describe FaradayResilient do
   it "has a version number" do
-    expect(Faraday::Resilient::VERSION).not_to be nil
+    expect(FaradayResilient::VERSION).not_to be nil
   end
 
   it "does something useful" do
