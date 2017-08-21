@@ -21,4 +21,14 @@ describe FaradayResilient::Middleware do
     request = -> { app.get('http://webhook-recipient.com/timeout') }
     expect(request).to raise_error Faraday::TimeoutError
   end
+
+  it 'raises a FaradayResilient::OpenCircuitError when a circuit is open' do
+    url = 'http://webhook-recipient.com/timeout'
+    open_circuit = Resilient::CircuitBreaker.get(url, force_open: true)
+
+    expect(Resilient::CircuitBreaker).to receive(:get).and_return open_circuit
+
+    request = -> { app.get('http://webhook-recipient.com/timeout') }
+    expect(request).to raise_error FaradayResilient::OpenCircuitError
+  end
 end

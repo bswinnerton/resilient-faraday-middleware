@@ -9,9 +9,17 @@ def app
   Faraday.new do |builder|
     builder.use FaradayResilient::Middleware
     builder.adapter :test do |stub|
-      stub.get('http://webhook-recipient.com/200') { |env| [ 200, {}, 'OK' ] }
-      stub.get('http://webhook-recipient.com/500') { |env| [ 500, {}, 'Internal Server Error' ] }
-      stub.get('http://webhook-recipient.com/timeout') { raise Faraday::TimeoutError }
+      stub.get('http://webhook-recipient.com/200') do |env|
+        [ 200, {}, 'OK' ]
+      end
+
+      stub.get('http://webhook-recipient.com/500') do |env|
+        [ 500, {}, 'Internal Server Error' ]
+      end
+
+      stub.get('http://webhook-recipient.com/timeout') do |env|
+        raise Faraday::TimeoutError
+      end
     end
   end
 end
