@@ -9,9 +9,7 @@ module FaradayResilient
       request_host    = request_env.url.host
       circuit_breaker = Resilient::CircuitBreaker.get(request_host)
 
-      if !circuit_breaker.allow_request?
-        raise OpenCircuitError
-      end
+      raise OpenCircuitError unless circuit_breaker.allow_request?
 
       @app.call(request_env).on_complete do |response_env|
         circuit_breaker.success
