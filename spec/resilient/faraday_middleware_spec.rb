@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe Resilient::FaradayMiddleware do
+  it 'has a version number' do
+    expect(Resilient::FaradayMiddleware::VERSION).not_to be nil
+  end
+
   it 'allows requests for a healthy host which returns a 200' do
     response = app.get('http://webhook-recipient.com/200')
     expect(response.status).to eq 200
