@@ -1,15 +1,15 @@
-require "faraday_resilient/version"
-require "resilient/circuit_breaker"
+require 'faraday'
+require 'resilient/circuit_breaker'
 
-module FaradayResilient
-  class OpenCircuitError < StandardError; end
+module Resilient
+  class FaradayMiddleware < Faraday::Middleware
+    VERSION = "0.1.0"
 
-  class Middleware < Faraday::Middleware
     def call(request_env)
       request_host    = request_env.url.host
       circuit_breaker = Resilient::CircuitBreaker.get(request_host)
 
-      raise OpenCircuitError unless circuit_breaker.allow_request?
+      raise NotImplementedError unless circuit_breaker.allow_request?
 
       @app.call(request_env).on_complete do |response_env|
         circuit_breaker.success

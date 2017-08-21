@@ -2,12 +2,12 @@ $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
 
 require 'faraday'
 require 'resilient'
-require 'faraday_resilient'
+require 'resilient/faraday_middleware'
 require 'pry'
 
 def app
   Faraday.new do |builder|
-    builder.use FaradayResilient::Middleware
+    builder.use Resilient::FaradayMiddleware
     builder.adapter :test do |stub|
       stub.get('http://webhook-recipient.com/200') do |env|
         [ 200, {}, 'OK' ]

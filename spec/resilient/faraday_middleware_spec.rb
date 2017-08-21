@@ -1,12 +1,6 @@
 require 'spec_helper'
 
-describe FaradayResilient do
-  it 'has a version number' do
-    expect(FaradayResilient::VERSION).not_to be nil
-  end
-end
-
-describe FaradayResilient::Middleware do
+describe Resilient::FaradayMiddleware do
   it 'allows requests for a healthy host which returns a 200' do
     response = app.get('http://webhook-recipient.com/200')
     expect(response.status).to eq 200
@@ -29,6 +23,6 @@ describe FaradayResilient::Middleware do
     expect(Resilient::CircuitBreaker).to receive(:get).and_return open_circuit
 
     request = -> { app.get('http://webhook-recipient.com/timeout') }
-    expect(request).to raise_error FaradayResilient::OpenCircuitError
+    expect(request).to raise_error NotImplementedError
   end
 end
