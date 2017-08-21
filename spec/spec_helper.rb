@@ -11,6 +11,7 @@ def app
     builder.adapter :test do |stub|
       stub.get('http://webhook-recipient.com/200') { |env| [ 200, {}, 'OK' ] }
       stub.get('http://webhook-recipient.com/500') { |env| [ 500, {}, 'Internal Server Error' ] }
+      stub.get('http://webhook-recipient.com/timeout') { raise Faraday::TimeoutError }
     end
   end
 end
