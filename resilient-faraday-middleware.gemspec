@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'resilient/faraday_middleware'
 
 Gem::Specification.new do |spec|
   spec.name          = "resilient-faraday-middleware"
-  spec.version       = Resilient::FaradayMiddleware::VERSION
+  spec.version       = "0.1.0"
   spec.authors       = ["Brooks Swinnerton"]
   spec.email         = ["brooks@github.com"]
 

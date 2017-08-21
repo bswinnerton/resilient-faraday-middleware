@@ -3,8 +3,6 @@ require 'resilient/circuit_breaker'
 
 module Resilient
   class FaradayMiddleware < Faraday::Middleware
-    VERSION = "0.1.0"
-
     def call(request_env)
       # do something with the request
       # request_env[:request_headers].merge!(...)
