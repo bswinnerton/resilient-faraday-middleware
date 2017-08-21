@@ -1,10 +1,11 @@
-require "faraday_resilient/version"
+require 'faraday'
+require 'resilient/circuit_breaker'
 
-module FaradayResilient
-  class Middleware < Faraday::Middleware
+module Resilient
+  class FaradayMiddleware < Faraday::Middleware
+    VERSION = "0.1.0"
+
     def call(request_env)
-      require 'pry'; binding.pry
-
       # do something with the request
       # request_env[:request_headers].merge!(...)
 
