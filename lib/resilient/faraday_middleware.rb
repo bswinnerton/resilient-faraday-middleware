@@ -3,8 +3,6 @@ require 'resilient/circuit_breaker'
 
 module Resilient
   class FaradayMiddleware < Faraday::Middleware
-    VERSION = "0.1.0"
-
     def call(request_env)
       request_host    = request_env.url.host
       circuit_breaker = Resilient::CircuitBreaker.get(request_host)
