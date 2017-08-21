@@ -1,7 +1,9 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
+
 require 'faraday'
-require 'pry'
+require 'resilient'
 require 'faraday_resilient'
+require 'pry'
 
 def app
   Faraday.new do |builder|
@@ -9,5 +11,11 @@ def app
     builder.adapter :test do |stub|
       stub.get('/ok') { |env| [ 200, {}, 'OK' ] }
     end
+  end
+end
+
+RSpec.configure do |config|
+  config.before(:each) do
+    Resilient::CircuitBreaker::Registry.reset
   end
 end
