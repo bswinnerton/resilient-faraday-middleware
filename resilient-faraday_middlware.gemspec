@@ -4,13 +4,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'resilient/faraday_middleware'
 
 Gem::Specification.new do |spec|
-  spec.name          = "faraday-resilient"
+  spec.name          = "resilient-faraday-middleware"
   spec.version       = Resilient::FaradayMiddleware::VERSION
   spec.authors       = ["Brooks Swinnerton"]
   spec.email         = ["brooks@github.com"]
 
-  spec.summary       = %q{A Faraday middleware using the Resilient gem to utilize circuit breakers in your connections.}
-  spec.homepage      = "https://github.com/bswinnerton/faraday-resilient"
+  spec.summary       = %q{A Faraday middleware using the Resilient gem to utilize circuit breakers when making requests.}
+  spec.homepage      = "https://github.com/bswinnerton/resilient-faraday-middleware"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
