@@ -4,13 +4,17 @@ require 'resilient/circuit_breaker'
 module Resilient
   class FaradayMiddleware < Faraday::Middleware
     def call(request_env)
-      # do something with the request
-      # request_env[:request_headers].merge!(...)
+      request_host    = request_env.url.host
+      circuit_breaker = Resilient::CircuitBreaker.get(request_host)
+
+      raise NotImplementedError unless circuit_breaker.allow_request?
 
       @app.call(request_env).on_complete do |response_env|
-        # do something with the response
-        # response_env[:response_headers].merge!(...)
+        circuit_breaker.success
       end
+    rescue Faraday::TimeoutError => exception
+      circuit_breaker.failure
+      raise exception
     end
   end
 end
